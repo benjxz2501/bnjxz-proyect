@@ -1,0 +1,1284 @@
+cat > /mnt/user-data/outputs/shimaya_ramen.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shimaya Ramen | Auténtico Ramen Japonés — Lima, Perú</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --black:#050505;
+  --card:#0e0e0e;
+  --red:#e11d1d;
+  --red2:#ff3d3d;
+  --red-dark:#7f0000;
+  --cream:#f5ede0;
+  --gold:#c9a84c;
+  --white:#f9f9f9;
+  --gray:#888;
+  --border:rgba(225,29,29,0.22);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Syne',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:0.6;
+}
+
+/* ── NAVBAR ── */
+.navbar{
+  position:sticky;top:0;z-index:500;
+  background:rgba(5,5,5,0.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:0.9rem 0;
+}
+.container{max-width:1320px;margin:0 auto;padding:0 2rem;}
+.nav-flex{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.logo-wrap h1{
+  font-family:'Noto Serif JP',serif;
+  font-size:1.7rem;font-weight:900;letter-spacing:3px;
+  background:linear-gradient(120deg,var(--cream),var(--red));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.logo-wrap p{font-size:0.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.nav-links{display:flex;gap:1.6rem;list-style:none;flex-wrap:wrap;}
+.nav-links a{
+  text-decoration:none;color:#ccc;font-weight:600;font-size:0.88rem;
+  letter-spacing:.5px;transition:.25s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;
+  background:var(--red);transition:.25s;
+}
+.nav-links a:hover{color:var(--red);}
+.nav-links a:hover::after{width:100%;}
+.nav-links a.special{
+  background:var(--red);color:#fff!important;
+  padding:6px 16px;border-radius:50px;
+  transition:.25s;
+}
+.nav-links a.special:hover{background:var(--red2);transform:scale(1.04);}
+.nav-links a.special::after{display:none;}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;font-weight:700;font-size:.9rem;
+  padding:13px 30px;border-radius:50px;text-decoration:none;
+  border:none;cursor:pointer;
+  transition:.3s;box-shadow:0 4px 20px rgba(225,29,29,.4);
+  letter-spacing:.5px;
+}
+.btn:hover{background:var(--red2);transform:translateY(-3px);box-shadow:0 10px 28px rgba(225,29,29,.55);}
+.btn-outline{background:transparent;border:2px solid var(--red);color:var(--red);box-shadow:none;}
+.btn-outline:hover{background:var(--red);color:#fff;}
+.btn-gold{background:var(--gold);color:#000;box-shadow:0 4px 20px rgba(201,168,76,.35);}
+.btn-gold:hover{background:#e0ba5a;}
+
+/* ── HERO ── */
+.hero{
+  min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#000 0%,#0a0000 60%,#120000 100%);
+}
+.hero-bg-svg{position:absolute;inset:0;width:100%;height:100%;opacity:.08;pointer-events:none;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2;}
+.hero-eyebrow{
+  font-family:'Space Mono',monospace;font-size:.75rem;
+  color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:1.2rem;
+}
+.hero-title{font-family:'Noto Serif JP',serif;font-size:4rem;font-weight:900;line-height:1.15;margin-bottom:1.5rem;}
+.hero-title .accent{color:var(--red);text-shadow:0 0 40px rgba(225,29,29,.5);}
+.hero-subtitle{color:#aaa;font-size:1.05rem;line-height:1.7;margin-bottom:2rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-visual{position:relative;display:flex;justify-content:center;}
+.hero-bowl-wrap{position:relative;animation:float 4s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
+.hero-glow{
+  position:absolute;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(225,29,29,.3) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.12);}}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:linear-gradient(90deg,var(--red-dark),#1a0000);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.2rem 0;
+}
+.stats-flex{display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;color:var(--cream);}
+.stat-label{font-size:.75rem;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ── SECTION TITLES ── */
+section{padding:5rem 0;border-bottom:1px solid var(--border);}
+.sec-title{text-align:center;margin-bottom:3rem;}
+.sec-title h2{
+  font-family:'Noto Serif JP',serif;font-size:2.6rem;font-weight:900;
+  background:linear-gradient(120deg,var(--white),var(--red));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:.5rem;
+}
+.sec-line{width:80px;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));margin:.7rem auto 0;border-radius:4px;}
+.sec-sub{color:var(--gray);font-size:.9rem;margin-top:.8rem;letter-spacing:1px;}
+
+/* ── GALLERY SECTION (HOMEPAGE) ── */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:220px 220px;
+  gap:1rem;border-radius:24px;overflow:hidden;
+}
+.gal-item{overflow:hidden;position:relative;cursor:pointer;}
+.gal-item:first-child{grid-column:span 2;grid-row:span 2;}
+.gal-item svg{width:100%;height:100%;object-fit:cover;transition:.4s;}
+.gal-item:hover svg{transform:scale(1.05);}
+.gal-overlay{
+  position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);
+  display:flex;align-items:flex-end;padding:1.2rem;opacity:0;transition:.3s;
+}
+.gal-item:hover .gal-overlay{opacity:1;}
+.gal-overlay span{color:var(--cream);font-weight:700;font-size:.9rem;letter-spacing:1px;}
+
+/* ── BOWL PREVIEW CARD (homepage teaser) ── */
+.bowl-teaser{
+  background:linear-gradient(135deg,var(--card),#0a0000);
+  border:1px solid var(--border);border-radius:28px;
+  padding:2.5rem 2rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+  transition:.3s;cursor:default;
+}
+.bowl-teaser:hover{transform:translateY(-6px);border-color:var(--red);box-shadow:0 20px 40px rgba(225,29,29,.2);}
+.bowl-teaser-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
+.bowl-teaser svg{width:120px;height:120px;}
+.bowl-teaser h3{font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:700;}
+.bowl-teaser p{color:#aaa;font-size:.85rem;line-height:1.6;}
+.bowl-teaser .price{color:var(--red);font-weight:800;font-size:1.3rem;font-family:'Space Mono',monospace;}
+.view-all-banner{
+  text-align:center;margin-top:2.5rem;padding:2rem;
+  background:linear-gradient(135deg,#120000,#050505);
+  border:1px dashed rgba(225,29,29,.4);border-radius:24px;
+}
+.view-all-banner h3{font-family:'Noto Serif JP',serif;font-size:1.5rem;margin-bottom:.6rem;}
+.view-all-banner p{color:#aaa;margin-bottom:1.5rem;}
+
+/* ── MENU TABLE ── */
+.menu-tabs{display:flex;gap:1rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap;}
+.tab-btn{
+  background:#1a1a1a;border:1px solid #333;color:#aaa;
+  padding:8px 22px;border-radius:50px;cursor:pointer;font-family:'Syne',sans-serif;
+  font-size:.85rem;font-weight:600;transition:.25s;
+}
+.tab-btn.active,.tab-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.menu-section{display:none;}
+.menu-section.active{display:block;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;}
+.menu-item{
+  background:var(--card);border:1px solid #1f1f1f;border-radius:20px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 1.4rem;transition:.25s;
+}
+.menu-item:hover{border-color:var(--red);background:#100000;}
+.menu-item-info h4{font-size:.95rem;font-weight:700;margin-bottom:.2rem;}
+.menu-item-info p{color:#777;font-size:.78rem;}
+.menu-price{
+  font-family:'Space Mono',monospace;color:var(--red);
+  font-weight:700;font-size:1rem;white-space:nowrap;margin-left:1rem;
+}
+.menu-badge{
+  display:inline-block;background:#1e0000;color:var(--red);
+  font-size:.65rem;font-weight:700;letter-spacing:.5px;
+  padding:2px 8px;border-radius:50px;border:1px solid rgba(225,29,29,.3);margin-top:3px;
+}
+
+/* ── SERVICE CARDS ── */
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;}
+.service-card{
+  background:var(--card);border:1px solid #1f1f1f;border-radius:24px;
+  padding:2rem 1.5rem;text-align:center;transition:.25s;
+}
+.service-card:hover{border-color:rgba(225,29,29,.5);transform:translateY(-5px);}
+.service-card i{font-size:2.5rem;color:var(--red);margin-bottom:1rem;display:block;}
+.service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem;}
+.service-card p{color:#888;font-size:.82rem;line-height:1.6;}
+
+/* ── PROMO BANNER ── */
+.promo-banner{
+  background:linear-gradient(135deg,var(--red-dark),#000 50%);
+  border-radius:28px;padding:2.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+  border:1px solid rgba(225,29,29,.3);margin:2rem 0;
+  position:relative;overflow:hidden;
+}
+.promo-banner::before{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:250px;height:250px;border-radius:50%;
+  background:radial-gradient(circle,rgba(225,29,29,.2),transparent 70%);
+}
+.promo-text h3{font-family:'Noto Serif JP',serif;font-size:1.6rem;margin-bottom:.5rem;}
+.promo-text p{color:#ccc;font-size:.9rem;}
+.promo-price{font-family:'Space Mono',monospace;font-size:2.5rem;font-weight:700;color:var(--cream);}
+
+/* ── HISTORY ── */
+.history-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.history-text h3{font-family:'Noto Serif JP',serif;font-size:2rem;margin-bottom:1.2rem;}
+.history-text p{color:#aaa;line-height:1.8;margin-bottom:1rem;}
+.history-text blockquote{
+  border-left:4px solid var(--red);padding-left:1.2rem;
+  font-style:italic;color:var(--cream);font-size:1.05rem;margin:1.5rem 0;
+}
+.history-visual{display:flex;flex-direction:column;gap:1rem;}
+.history-card{
+  background:var(--card);border-radius:20px;padding:1.5rem;
+  border:1px solid #1f1f1f;display:flex;align-items:center;gap:1.2rem;
+}
+.history-card i{font-size:2rem;color:var(--red);}
+.history-card h4{font-size:.95rem;font-weight:700;}
+.history-card p{color:#777;font-size:.8rem;}
+
+/* ── SOCIAL SECTION ── */
+.social-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.2rem;margin-top:2rem;}
+.social-card{
+  background:var(--card);border:1px solid #1f1f1f;border-radius:20px;
+  padding:1.8rem 1.2rem;text-align:center;text-decoration:none;color:var(--white);
+  transition:.3s;
+}
+.social-card:hover{transform:translateY(-6px);}
+.social-card.ig:hover{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);border-color:transparent;}
+.social-card.fb:hover{background:#1877f2;border-color:transparent;}
+.social-card.tt:hover{background:#010101;border-color:#fff;}
+.social-card.tw:hover{background:#1da1f2;border-color:transparent;}
+.social-card.wa:hover{background:#25d366;border-color:transparent;}
+.social-card.yt:hover{background:#ff0000;border-color:transparent;}
+.social-card i{font-size:2.5rem;margin-bottom:.8rem;display:block;}
+.social-card h4{font-weight:700;font-size:.95rem;margin-bottom:.3rem;}
+.social-card p{color:#888;font-size:.78rem;}
+.social-card .handle{color:var(--red);font-weight:700;font-size:.85rem;margin-top:.3rem;}
+.social-hashtag{text-align:center;margin-top:2rem;color:#777;font-size:.9rem;}
+.social-hashtag strong{color:var(--cream);}
+
+/* ── LOCATION ── */
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.loc-card{background:var(--card);border:1px solid #1f1f1f;border-radius:24px;padding:2rem;}
+.loc-card i{font-size:2.5rem;color:var(--red);margin-bottom:1rem;display:block;}
+.loc-card h3{font-size:1.2rem;font-weight:700;margin-bottom:1rem;}
+.loc-card p{color:#aaa;font-size:.9rem;margin-bottom:.5rem;line-height:1.6;}
+.map-embed{
+  background:#111;border-radius:20px;border:1px solid #222;
+  height:220px;display:flex;align-items:center;justify-content:center;
+  margin-top:1rem;overflow:hidden;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:#020202;border-top:1px solid var(--red-dark);
+  padding:2.5rem 0;
+}
+.footer-flex{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-logo{font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:900;color:var(--cream);}
+.footer-copy{color:#555;font-size:.78rem;text-align:center;}
+.footer-links{display:flex;gap:1rem;}
+.footer-links a{color:#555;text-decoration:none;font-size:.8rem;transition:.2s;}
+.footer-links a:hover{color:var(--red);}
+
+/* ── MODAL ── */
+.modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.88);backdrop-filter:blur(10px);
+  justify-content:center;align-items:center;z-index:2000;
+}
+.modal.open{display:flex;}
+.modal-content{
+  background:linear-gradient(145deg,#100000,#0e0e0e);
+  border:1px solid rgba(225,29,29,.4);border-radius:32px;
+  width:90%;max-width:520px;padding:2.5rem;
+  position:relative;animation:fadeUp .3s ease;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.close-modal{position:absolute;top:1.2rem;right:1.5rem;font-size:1.8rem;color:var(--red);cursor:pointer;background:none;border:none;}
+.modal-bowl svg{width:80px;height:80px;margin-bottom:1rem;}
+.modal-title{font-family:'Noto Serif JP',serif;font-size:1.8rem;color:var(--red);margin-bottom:.6rem;}
+.modal-desc{color:#aaa;line-height:1.7;margin-bottom:1rem;}
+.modal-price{font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;color:var(--cream);margin-bottom:1.2rem;}
+.modal-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.modal-tag{background:#1e0000;color:var(--red);padding:4px 12px;border-radius:50px;font-size:.72rem;border:1px solid rgba(225,29,29,.3);}
+
+/* ── BOWL PAGE (bowls.html inline via #page-bowls) ── */
+#page-bowls{display:none;}
+#page-bowls.active{display:block;}
+#page-main.hidden{display:none;}
+.bowls-hero{
+  background:linear-gradient(135deg,#080000,#000);
+  padding:4rem 0;border-bottom:1px solid var(--border);
+  text-align:center;
+}
+.bowls-hero h1{font-family:'Noto Serif JP',serif;font-size:3.5rem;font-weight:900;margin-bottom:.8rem;}
+.bowls-hero p{color:#aaa;font-size:1.05rem;max-width:600px;margin:0 auto 2rem;}
+.filter-bar{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+.filter-btn{
+  background:#111;border:1px solid #2a2a2a;color:#888;
+  padding:7px 20px;border-radius:50px;cursor:pointer;
+  font-family:'Syne',sans-serif;font-size:.82rem;font-weight:600;transition:.25s;
+}
+.filter-btn.active,.filter-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.bowls-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.8rem;}
+.bowl-card{
+  background:var(--card);border:1px solid #1a1a1a;border-radius:28px;
+  overflow:hidden;cursor:pointer;transition:.35s;
+  position:relative;
+}
+.bowl-card:hover{transform:translateY(-8px);border-color:var(--red);box-shadow:0 24px 48px rgba(225,29,29,.2);}
+.bowl-card-img{height:200px;display:flex;align-items:center;justify-content:center;background:#0a0000;overflow:hidden;}
+.bowl-card-img svg{width:160px;height:160px;transition:.4s;}
+.bowl-card:hover .bowl-card-img svg{transform:scale(1.08);}
+.bowl-card-body{padding:1.4rem;}
+.bowl-card-body h3{font-family:'Noto Serif JP',serif;font-size:1.25rem;font-weight:700;margin-bottom:.4rem;}
+.bowl-card-body p{color:#888;font-size:.82rem;line-height:1.5;margin-bottom:.9rem;}
+.bowl-card-footer{display:flex;justify-content:space-between;align-items:center;}
+.bowl-card-footer .price{font-family:'Space Mono',monospace;color:var(--red);font-weight:700;font-size:1.1rem;}
+.bowl-badge{background:#1a0000;color:var(--red);padding:4px 10px;border-radius:50px;font-size:.68rem;font-weight:700;border:1px solid rgba(225,29,29,.25);}
+.bowl-spice{display:flex;gap:3px;margin-top:.5rem;}
+.chili{color:#e11d1d;font-size:.7rem;}
+.chili.off{color:#333;}
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--red);text-decoration:none;font-weight:700;
+  margin-bottom:2rem;cursor:pointer;background:none;border:none;
+  font-family:'Syne',sans-serif;font-size:.95rem;
+  transition:.2s;
+}
+.back-btn:hover{color:var(--red2);}
+.bowl-page-nav{
+  background:rgba(5,5,5,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:500;padding:.9rem 0;
+}
+.bowl-nav-flex{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-grid,.history-grid,.location-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:2.6rem;}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .gal-item:first-child{grid-column:span 2;height:200px;}
+}
+@media(max-width:600px){
+  .hero-title{font-size:2rem;}
+  .nav-links{gap:1rem;}
+  .gallery-grid{grid-template-columns:1fr;}
+  .gal-item:first-child{grid-column:span 1;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     PÁGINA PRINCIPAL
+═══════════════════════════════════ -->
+<div id="page-main">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+<div class="container nav-flex">
+  <div class="logo-wrap">
+    <h1>SHIMAYA RAMEN</h1>
+    <p>🍜 旨味 · 伝統 · 情熱 · Lima</p>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#servicio">Servicio</a></li>
+    <li><a href="#social">Social</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#" onclick="goToBowls()" class="special">🍜 Ver Tazones</a></li>
+  </ul>
+</div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="inicio" class="hero">
+  <!-- Decorative SVG bg -->
+  <svg class="hero-bg-svg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="1100" cy="200" r="300" fill="rgba(225,29,29,0.06)"/>
+    <circle cx="1200" cy="400" r="200" fill="rgba(225,29,29,0.04)"/>
+    <line x1="0" y1="0" x2="1400" y2="800" stroke="rgba(225,29,29,0.04)" stroke-width="1"/>
+    <line x1="1400" y1="0" x2="0" y2="800" stroke="rgba(225,29,29,0.04)" stroke-width="1"/>
+    <!-- Japanese kanji decorative -->
+    <text x="900" y="500" font-size="260" fill="rgba(225,29,29,0.04)" font-family="serif">麺</text>
+    <text x="50" y="700" font-size="180" fill="rgba(255,255,255,0.02)" font-family="serif">拉</text>
+  </svg>
+
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow">🎌 Auténtico ramen japonés · Miraflores, Lima</div>
+        <h1 class="hero-title">El alma del<br><span class="accent">umami</span><br>en cada tazón</h1>
+        <p class="hero-subtitle">Caldos cocidos más de 18 horas, fideos frescos artesanales y toppings de autor. Shimaya te lleva a las calles de Tokio sin salir de Lima.</p>
+        <div class="hero-actions">
+          <a href="#" onclick="goToBowls()" class="btn">🍜 Explorar Tazones</a>
+          <a href="#menu" class="btn btn-outline">Ver Carta Completa</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-glow"></div>
+        <div class="hero-bowl-wrap">
+          <!-- SVG Bowl illustration -->
+          <svg width="340" height="340" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+            <!-- Steam -->
+            <g opacity="0.6">
+              <path d="M120 80 Q125 60 115 45 Q110 35 120 25" stroke="#e11d1d" stroke-width="2.5" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/></path>
+              <path d="M170 70 Q175 50 165 35 Q160 25 170 15" stroke="#e11d1d" stroke-width="2.5" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="1;0.5;1" dur="2.8s" repeatCount="indefinite"/></path>
+              <path d="M220 80 Q225 60 215 45 Q210 35 220 25" stroke="#e11d1d" stroke-width="2.5" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/></path>
+            </g>
+            <!-- Bowl shadow -->
+            <ellipse cx="170" cy="300" rx="110" ry="18" fill="rgba(0,0,0,0.5)"/>
+            <!-- Bowl body -->
+            <path d="M60 160 Q70 270 170 280 Q270 270 280 160 Z" fill="#1a0000" stroke="#e11d1d" stroke-width="2"/>
+            <!-- Bowl rim -->
+            <ellipse cx="170" cy="160" rx="110" ry="28" fill="#220000" stroke="#e11d1d" stroke-width="2.5"/>
+            <!-- Broth surface -->
+            <ellipse cx="170" cy="160" rx="104" ry="23" fill="#8B0000" opacity="0.7"/>
+            <!-- Noodles swirl -->
+            <g opacity="0.9">
+              <path d="M100 158 Q130 145 170 158 Q210 168 240 158" stroke="#f5ede0" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M110 165 Q145 152 170 164 Q200 174 225 165" stroke="#f5ede0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M120 155 Q155 142 175 153 Q205 163 230 155" stroke="#e8d5b0" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Toppings: Egg halves -->
+            <circle cx="145" cy="158" r="18" fill="#f5d76e" stroke="#daa520" stroke-width="1.5"/>
+            <circle cx="145" cy="158" r="10" fill="#e8961a"/>
+            <!-- Chashu -->
+            <ellipse cx="205" cy="155" rx="22" ry="14" fill="#8B2500" stroke="#5a1500" stroke-width="1.5"/>
+            <ellipse cx="205" cy="155" rx="16" ry="9" fill="#a83000" stroke="#6b1d00" stroke-width="1"/>
+            <!-- Nori -->
+            <rect x="160" y="142" width="22" height="28" rx="3" fill="#1a2e1a" stroke="#2d4a2d" stroke-width="1"/>
+            <!-- Green onion -->
+            <circle cx="130" cy="148" r="4" fill="#3a8a3a"/>
+            <circle cx="138" cy="144" r="3" fill="#4aaa4a"/>
+            <circle cx="125" cy="152" r="3.5" fill="#3a8a3a"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+<div class="container stats-flex">
+  <div class="stat-item"><div class="stat-num">18h</div><div class="stat-label">cocción del caldo</div></div>
+  <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">variedades de ramen</div></div>
+  <div class="stat-item"><div class="stat-num">25k</div><div class="stat-label">tazones servidos</div></div>
+  <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">rating promedio</div></div>
+  <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">conservantes</div></div>
+</div>
+</div>
+
+<!-- GALERÍA -->
+<section id="galeria">
+<div class="container">
+  <div class="sec-title">
+    <h2>📸 El ambiente Shimaya</h2>
+    <div class="sec-line"></div>
+    <p class="sec-sub">Una experiencia visual antes de probar el sabor</p>
+  </div>
+  <div class="gallery-grid">
+    <!-- Big featured image -->
+    <div class="gal-item">
+      <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <defs><radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#200000"/><stop offset="100%" stop-color="#050000"/></radialGradient></defs>
+        <rect width="800" height="600" fill="url(#g1)"/>
+        <!-- Table scene -->
+        <rect x="100" y="350" width="600" height="200" rx="10" fill="#1a0a00"/>
+        <rect x="50" y="340" width="700" height="20" rx="5" fill="#2a1000"/>
+        <!-- Big bowl -->
+        <ellipse cx="400" cy="330" rx="160" ry="40" fill="#5a0000" stroke="#e11d1d" stroke-width="3"/>
+        <path d="M240 330 Q260 440 400 455 Q540 440 560 330 Z" fill="#200000" stroke="#e11d1d" stroke-width="2"/>
+        <!-- Broth -->
+        <ellipse cx="400" cy="330" rx="152" ry="34" fill="#8b0000" opacity="0.8"/>
+        <!-- Noodles -->
+        <path d="M290 326 Q330 310 400 325 Q470 338 510 326" stroke="#f5ede0" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M300 335 Q345 319 400 333 Q460 345 505 335" stroke="#e8d5b0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Egg -->
+        <circle cx="355" cy="325" r="26" fill="#f5d76e" stroke="#daa520" stroke-width="2"/>
+        <circle cx="355" cy="325" r="14" fill="#e8961a"/>
+        <!-- Chashu slices -->
+        <ellipse cx="448" cy="320" rx="30" ry="18" fill="#8B2500" stroke="#5a1500" stroke-width="2"/>
+        <ellipse cx="448" cy="320" rx="22" ry="12" fill="#a83000"/>
+        <!-- Chopsticks -->
+        <rect x="520" y="250" width="8" height="200" rx="4" fill="#d4a96a" transform="rotate(-15,530,350)"/>
+        <rect x="545" y="250" width="8" height="200" rx="4" fill="#c4995a" transform="rotate(-12,555,350)"/>
+        <!-- Steam -->
+        <path d="M350 270 Q355 250 345 235" stroke="rgba(255,200,200,0.5)" stroke-width="3" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></path>
+        <path d="M400 260 Q405 240 395 225" stroke="rgba(255,200,200,0.5)" stroke-width="3" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.4s" repeatCount="indefinite"/></path>
+        <path d="M450 270 Q455 250 445 235" stroke="rgba(255,200,200,0.5)" stroke-width="3" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.5;0.9;0.5" dur="1.9s" repeatCount="indefinite"/></path>
+        <!-- Japanese decor on wall -->
+        <text x="60" y="200" font-size="100" fill="rgba(225,29,29,0.08)" font-family="serif">麺</text>
+        <text x="600" y="300" font-size="80" fill="rgba(225,29,29,0.06)" font-family="serif">丼</text>
+        <!-- Candle -->
+        <rect x="620" y="320" width="12" height="30" rx="3" fill="#f5ede0"/>
+        <ellipse cx="626" cy="315" rx="5" ry="8" fill="#f5a623" opacity="0.9"><animate attributeName="ry" values="8;10;7;9;8" dur="0.8s" repeatCount="indefinite"/></ellipse>
+        <!-- Soy sauce bottle -->
+        <rect x="200" y="305" width="16" height="45" rx="5" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+        <rect x="203" y="295" width="10" height="14" rx="2" fill="#333"/>
+        <text x="153" y="320" font-size="11" fill="rgba(255,255,255,0.6)" font-family="sans-serif">醤油</text>
+      </svg>
+      <div class="gal-overlay"><span>Bowl signature con chashu doble</span></div>
+    </div>
+
+    <!-- Kitchen scene -->
+    <div class="gal-item">
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <rect width="400" height="220" fill="#0a0500"/>
+        <!-- Stove / fire -->
+        <rect x="50" y="120" width="300" height="60" rx="8" fill="#1a1000"/>
+        <!-- Flame rings -->
+        <ellipse cx="130" cy="120" rx="40" ry="12" fill="none" stroke="#444" stroke-width="2"/>
+        <ellipse cx="270" cy="120" rx="40" ry="12" fill="none" stroke="#444" stroke-width="2"/>
+        <!-- Flames -->
+        <g><ellipse cx="130" cy="110" rx="18" ry="22" fill="#ff4500" opacity="0.9"><animate attributeName="ry" values="22;26;20;24;22" dur="0.5s" repeatCount="indefinite"/></ellipse>
+        <ellipse cx="130" cy="105" rx="12" ry="16" fill="#ff8c00" opacity="0.9"/>
+        <ellipse cx="130" cy="102" rx="7" ry="10" fill="#ffd700"/></g>
+        <g><ellipse cx="270" cy="110" rx="18" ry="22" fill="#ff4500" opacity="0.9"><animate attributeName="ry" values="20;25;18;23;20" dur="0.6s" repeatCount="indefinite"/></ellipse>
+        <ellipse cx="270" cy="105" rx="12" ry="16" fill="#ff8c00" opacity="0.9"/>
+        <ellipse cx="270" cy="102" rx="7" ry="10" fill="#ffd700"/></g>
+        <!-- Large pots -->
+        <ellipse cx="130" cy="122" rx="50" ry="14" fill="#2a2a2a" stroke="#555" stroke-width="2"/>
+        <path d="M80 122 Q80 170 130 175 Q180 170 180 122 Z" fill="#1a1a1a" stroke="#555" stroke-width="2"/>
+        <ellipse cx="130" cy="122" rx="46" ry="12" fill="#8b0000" opacity="0.6"/>
+        <!-- Steam from pot -->
+        <path d="M115 108 Q118 98 112 90" stroke="rgba(255,200,200,0.6)" stroke-width="2" fill="none"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.5s" repeatCount="indefinite"/></path>
+        <path d="M130 105 Q133 95 127 87" stroke="rgba(255,200,200,0.6)" stroke-width="2" fill="none"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="1.8s" repeatCount="indefinite"/></path>
+        <!-- Chef ladle -->
+        <line x1="185" y1="70" x2="175" y2="125" stroke="#888" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="175" cy="130" r="10" fill="none" stroke="#888" stroke-width="2.5"/>
+        <!-- Ingredient shelf -->
+        <rect x="20" y="20" width="360" height="60" rx="5" fill="#111"/>
+        <rect x="30" y="22" width="340" height="56" rx="4" fill="#1a1a1a"/>
+        <!-- Ingredient jars -->
+        <g><rect x="45" y="30" width="25" height="40" rx="4" fill="#2d1b00" stroke="#5a3600" stroke-width="1"/><text x="48" y="56" font-size="9" fill="#c9a84c">味噌</text></g>
+        <g><rect x="80" y="28" width="20" height="42" rx="3" fill="#1a0000" stroke="#5a0000" stroke-width="1"/><text x="82" y="54" font-size="9" fill="#e11d1d">醤油</text></g>
+        <g><rect x="110" y="32" width="22" height="38" rx="4" fill="#2d2d00" stroke="#5a5a00" stroke-width="1"/><text x="112" y="55" font-size="9" fill="#ccc">酒</text></g>
+        <text x="160" y="60" font-size="10" fill="rgba(225,29,29,0.5)" font-family="serif">厨房</text>
+        <!-- Chef silhouette -->
+        <circle cx="330" cy="65" r="20" fill="#1a1a1a"/>
+        <rect x="315" y="85" width="30" height="60" rx="5" fill="#1a1a1a"/>
+        <path d="M310 65 Q330 50 350 65" fill="#fff" opacity="0.6"/>
+      </svg>
+      <div class="gal-overlay"><span>Nuestra cocina</span></div>
+    </div>
+
+    <!-- Interior -->
+    <div class="gal-item">
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <rect width="400" height="220" fill="#080005"/>
+        <!-- Floor -->
+        <rect x="0" y="160" width="400" height="60" fill="#100800"/>
+        <!-- Wall -->
+        <rect x="0" y="0" width="400" height="160" fill="#0d0007"/>
+        <!-- Japanese lanterns -->
+        <g><ellipse cx="80" cy="50" rx="25" ry="35" fill="#8b0000" opacity="0.8"/><ellipse cx="80" cy="50" rx="20" ry="28" fill="#cc0000" opacity="0.5"/><text x="68" y="55" font-size="12" fill="rgba(255,220,180,0.8)" font-family="serif">福</text><line x1="80" y1="15" x2="80" y2="5" stroke="#888" stroke-width="2"/></g>
+        <g><ellipse cx="200" cy="40" rx="22" ry="32" fill="#8b0000" opacity="0.8"/><ellipse cx="200" cy="40" rx="17" ry="25" fill="#cc0000" opacity="0.5"/><text x="189" y="45" font-size="11" fill="rgba(255,220,180,0.8)" font-family="serif">麺</text><line x1="200" y1="8" x2="200" y2="0" stroke="#888" stroke-width="2"/></g>
+        <g><ellipse cx="330" cy="55" rx="25" ry="35" fill="#8b0000" opacity="0.8"/><ellipse cx="330" cy="55" rx="20" ry="28" fill="#cc0000" opacity="0.5"/><text x="318" y="60" font-size="12" fill="rgba(255,220,180,0.8)" font-family="serif">拉</text><line x1="330" y1="20" x2="330" y2="10" stroke="#888" stroke-width="2"/></g>
+        <!-- Tables & chairs -->
+        <rect x="50" y="155" width="120" height="8" rx="3" fill="#3a2010"/>
+        <rect x="60" y="163" width="8" height="40" rx="2" fill="#2a1500"/>
+        <rect x="152" y="163" width="8" height="40" rx="2" fill="#2a1500"/>
+        <rect x="220" y="155" width="140" height="8" rx="3" fill="#3a2010"/>
+        <rect x="230" y="163" width="8" height="40" rx="2" fill="#2a1500"/>
+        <rect x="342" y="163" width="8" height="40" rx="2" fill="#2a1500"/>
+        <!-- Noren curtain -->
+        <rect x="0" y="100" width="400" height="60" fill="none"/>
+        <g opacity="0.7">
+          <rect x="20" y="100" width="60" height="70" rx="0 0 10 10" fill="#8b0000" opacity="0.6"/>
+          <rect x="88" y="100" width="60" height="70" rx="0 0 10 10" fill="#0d0007" opacity="0.8"/>
+          <rect x="156" y="100" width="60" height="70" rx="0 0 10 10" fill="#8b0000" opacity="0.6"/>
+          <rect x="224" y="100" width="60" height="70" rx="0 0 10 10" fill="#0d0007" opacity="0.8"/>
+          <rect x="292" y="100" width="60" height="70" rx="0 0 10 10" fill="#8b0000" opacity="0.6"/>
+          <rect x="360" y="100" width="40" height="70" rx="0 0 10 10" fill="#0d0007" opacity="0.8"/>
+        </g>
+        <!-- Noren text -->
+        <text x="28" y="140" font-size="18" fill="rgba(255,220,180,0.9)" font-family="serif">島</text>
+        <text x="163" y="140" font-size="18" fill="rgba(255,220,180,0.9)" font-family="serif">屋</text>
+        <text x="298" y="140" font-size="18" fill="rgba(255,220,180,0.9)" font-family="serif">麺</text>
+        <!-- Floor reflection -->
+        <rect x="0" y="158" width="400" height="2" fill="rgba(225,29,29,0.2)"/>
+      </svg>
+      <div class="gal-overlay"><span>Ambiente japonés auténtico</span></div>
+    </div>
+
+    <!-- Ingredients -->
+    <div class="gal-item">
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <rect width="400" height="220" fill="#050500"/>
+        <!-- Dark wooden board background -->
+        <rect x="10" y="10" width="380" height="200" rx="8" fill="#1a1000"/>
+        <!-- Ingredients laid out -->
+        <!-- Pork belly -->
+        <g transform="translate(30,30)">
+          <ellipse cx="45" cy="30" rx="45" ry="20" fill="#a83000"/>
+          <rect x="0" y="28" width="90" height="25" rx="5" fill="#8b2500"/>
+          <rect x="5" y="33" width="80" height="8" rx="3" fill="#f5ede0" opacity="0.3"/>
+          <rect x="5" y="42" width="80" height="6" rx="3" fill="#cc4400" opacity="0.5"/>
+          <text x="18" y="70" font-size="9" fill="rgba(255,220,180,0.7)" font-family="sans-serif">チャーシュー</text>
+        </g>
+        <!-- Eggs -->
+        <g transform="translate(150,20)">
+          <ellipse cx="25" cy="35" rx="22" ry="28" fill="#f5d76e" stroke="#daa520" stroke-width="1.5"/>
+          <ellipse cx="25" cy="35" rx="13" ry="15" fill="#e8961a"/>
+          <ellipse cx="65" cy="38" rx="22" ry="28" fill="#f5d76e" stroke="#daa520" stroke-width="1.5"/>
+          <ellipse cx="65" cy="38" rx="13" ry="15" fill="#e8961a"/>
+          <text x="15" y="75" font-size="9" fill="rgba(255,220,180,0.7)" font-family="sans-serif">煮玉子</text>
+        </g>
+        <!-- Nori sheet -->
+        <g transform="translate(260,25)">
+          <rect x="0" y="0" width="80" height="60" rx="4" fill="#1a2e1a" stroke="#2d4a2d" stroke-width="1.5"/>
+          <line x1="0" y1="20" x2="80" y2="20" stroke="#2d4a2d" stroke-width="0.5" opacity="0.5"/>
+          <line x1="0" y1="40" x2="80" y2="40" stroke="#2d4a2d" stroke-width="0.5" opacity="0.5"/>
+          <line x1="27" y1="0" x2="27" y2="60" stroke="#2d4a2d" stroke-width="0.5" opacity="0.5"/>
+          <line x1="54" y1="0" x2="54" y2="60" stroke="#2d4a2d" stroke-width="0.5" opacity="0.5"/>
+          <text x="15" y="75" font-size="9" fill="rgba(255,220,180,0.7)" font-family="sans-serif">のり</text>
+        </g>
+        <!-- Green onion -->
+        <g transform="translate(20,110)">
+          <line x1="0" y1="0" x2="100" y2="0" stroke="#4aaa4a" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="10" cy="0" r="6" fill="#3a8a3a"/>
+          <circle cx="30" cy="-3" r="5" fill="#4aaa4a"/>
+          <circle cx="50" cy="2" r="5.5" fill="#3a8a3a"/>
+          <circle cx="70" cy="-2" r="5" fill="#4aaa4a"/>
+          <circle cx="90" cy="1" r="6" fill="#3a8a3a"/>
+          <text x="25" y="20" font-size="9" fill="rgba(255,220,180,0.7)" font-family="sans-serif">ねぎ</text>
+        </g>
+        <!-- Bamboo shoots -->
+        <g transform="translate(150,110)">
+          <rect x="0" y="-10" width="20" height="50" rx="5" fill="#d4b483"/>
+          <rect x="25" y="-5" width="20" height="45" rx="5" fill="#c9a45a"/>
+          <rect x="50" y="-8" width="20" height="48" rx="5" fill="#d4b483"/>
+          <line x1="5" y1="5" x2="15" y2="5" stroke="#b8943e" stroke-width="1"/>
+          <line x1="5" y1="15" x2="15" y2="15" stroke="#b8943e" stroke-width="1"/>
+          <line x1="5" y1="25" x2="15" y2="25" stroke="#b8943e" stroke-width="1"/>
+          <text x="10" y="52" font-size="9" fill="rgba(255,220,180,0.7)" font-family="sans-serif">メンマ</text>
+        </g>
+        <!-- Sesame seeds scattered -->
+        <g fill="#f5d76e" opacity="0.5">
+          <circle cx="280" cy="130" r="3"/>
+          <circle cx="292" cy="140" r="2.5"/>
+          <circle cx="305" cy="125" r="3"/>
+          <circle cx="318" cy="138" r="2"/>
+          <circle cx="330" cy="128" r="3"/>
+          <circle cx="343" cy="142" r="2.5"/>
+          <circle cx="355" cy="133" r="3"/>
+          <circle cx="368" cy="120" r="2"/>
+        </g>
+        <text x="285" y="165" font-size="9" fill="rgba(255,220,180,0.7)" font-family="sans-serif">ごま</text>
+        <!-- Label banner -->
+        <rect x="10" y="180" width="380" height="28" rx="5" fill="#1a0000" opacity="0.8"/>
+        <text x="105" y="198" font-size="12" fill="rgba(225,29,29,0.8)" font-family="sans-serif" font-weight="bold">Ingredientes frescos · Selección diaria · Sin conservantes</text>
+      </svg>
+      <div class="gal-overlay"><span>Ingredientes frescos diarios</span></div>
+    </div>
+
+    <!-- Gyoza close-up -->
+    <div class="gal-item">
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <rect width="400" height="220" fill="#060300"/>
+        <rect x="20" y="20" width="360" height="180" rx="12" fill="#0d0800"/>
+        <!-- Plate -->
+        <ellipse cx="200" cy="140" rx="160" ry="50" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+        <ellipse cx="200" cy="132" rx="155" ry="46" fill="#111"/>
+        <!-- Sauce pool -->
+        <ellipse cx="200" cy="132" rx="150" ry="42" fill="#1a0000" opacity="0.7"/>
+        <!-- Gyozas in a line -->
+        <g transform="translate(50,80)">
+          <!-- Gyoza 1 -->
+          <path d="M0 40 Q30 5 60 40 Q30 55 0 40 Z" fill="#d4a96a" stroke="#c09050" stroke-width="1.5"/>
+          <path d="M5 38 Q30 12 55 38" stroke="#c09050" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <path d="M0 40 Q5 48 30 50 Q55 48 60 40" fill="#b88a50" stroke="#a07030" stroke-width="1"/>
+          <!-- Crispy bottom indicator -->
+          <path d="M2 42 Q30 52 58 42" stroke="#8b5a00" stroke-width="1.5" fill="none"/>
+        </g>
+        <g transform="translate(110,75)">
+          <path d="M0 40 Q30 5 60 40 Q30 55 0 40 Z" fill="#c8904a" stroke="#b07838" stroke-width="1.5"/>
+          <path d="M5 38 Q30 12 55 38" stroke="#b07838" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <path d="M0 40 Q5 48 30 50 Q55 48 60 40" fill="#a87030" stroke="#906020" stroke-width="1"/>
+        </g>
+        <g transform="translate(170,80)">
+          <path d="M0 40 Q30 5 60 40 Q30 55 0 40 Z" fill="#d4a96a" stroke="#c09050" stroke-width="1.5"/>
+          <path d="M5 38 Q30 12 55 38" stroke="#c09050" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <path d="M0 40 Q5 48 30 50 Q55 48 60 40" fill="#b88a50" stroke="#a07030" stroke-width="1"/>
+        </g>
+        <g transform="translate(230,75)">
+          <path d="M0 40 Q30 5 60 40 Q30 55 0 40 Z" fill="#c8904a" stroke="#b07838" stroke-width="1.5"/>
+          <path d="M5 38 Q30 12 55 38" stroke="#b07838" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <path d="M0 40 Q5 48 30 50 Q55 48 60 40" fill="#a87030" stroke="#906020" stroke-width="1"/>
+        </g>
+        <!-- Sauce dots on plate -->
+        <circle cx="80" cy="160" r="8" fill="#8b0000" opacity="0.8"/>
+        <circle cx="330" cy="158" r="7" fill="#8b0000" opacity="0.8"/>
+        <!-- Green garnish -->
+        <ellipse cx="200" cy="105" rx="15" ry="6" fill="#3a8a3a" opacity="0.8"/>
+        <!-- Label -->
+        <text x="145" y="205" font-size="14" fill="rgba(225,29,29,0.7)" font-family="sans-serif" font-weight="bold">GYOZA ARTESANAL</text>
+      </svg>
+      <div class="gal-overlay"><span>Gyoza artesanal — 6 uds.</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TAZONES TEASER (homepage, sólo 4 destacados + CTA) -->
+<section id="ramens">
+<div class="container">
+  <div class="sec-title">
+    <h2>⚡ Tazones Estrella</h2>
+    <div class="sec-line"></div>
+    <p class="sec-sub">Haz clic para ver detalles. Para los 20 tazones visita nuestra página especial.</p>
+  </div>
+  <div class="bowl-teaser-grid">
+    <!-- Tonkotsu -->
+    <div class="bowl-teaser" onclick="openModal('Tonkotsu Clásico','Caldo de hueso de cerdo 20h, chashu de panceta, huevo ajitsuke, ajo negro asado, menma y cebollín. El rey del ramen cremoso.','$16.900',['cremoso','popular','18h caldo'])">
+      <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" fill="#0a0000" stroke="rgba(225,29,29,0.3)" stroke-width="1"/>
+        <ellipse cx="60" cy="70" rx="42" ry="12" fill="#5a0000" stroke="#e11d1d" stroke-width="1.5"/>
+        <path d="M18 70 Q22 100 60 104 Q98 100 102 70 Z" fill="#1a0000" stroke="#e11d1d" stroke-width="1.2"/>
+        <ellipse cx="60" cy="70" rx="39" ry="10" fill="#8b0000" opacity="0.7"/>
+        <path d="M35 68 Q52 61 60 68 Q72 74 83 68" stroke="#f5ede0" stroke-width="2.5" fill="none"/>
+        <circle cx="48" cy="67" r="9" fill="#f5d76e" stroke="#daa520" stroke-width="1"/>
+        <circle cx="48" cy="67" r="5" fill="#e8961a"/>
+        <ellipse cx="72" cy="65" rx="12" ry="7" fill="#8B2500"/>
+      </svg>
+      <h3>Tonkotsu Clásico</h3>
+      <p>Caldo cremoso 20h, chashu, huevo marinado</p>
+      <div class="price">$16.900</div>
+    </div>
+    <!-- Spicy Miso -->
+    <div class="bowl-teaser" onclick="openModal('Spicy Miso Ramen','Pasta de miso akadashi, caldo de pollo y cerdo, carne molida picante, maíz, mantequilla, pak choi y aceite chili. Bombaso de umami picante.','$15.900',['picante','umami','bestseller'])">
+      <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" fill="#0a0000" stroke="rgba(225,29,29,0.3)" stroke-width="1"/>
+        <ellipse cx="60" cy="70" rx="42" ry="12" fill="#5a0000" stroke="#e11d1d" stroke-width="1.5"/>
+        <path d="M18 70 Q22 100 60 104 Q98 100 102 70 Z" fill="#1a0000" stroke="#e11d1d" stroke-width="1.2"/>
+        <ellipse cx="60" cy="70" rx="39" ry="10" fill="#8b2000" opacity="0.8"/>
+        <path d="M35 68 Q52 61 60 68 Q72 74 83 68" stroke="#f5ede0" stroke-width="2.5" fill="none"/>
+        <!-- Corn kernels -->
+        <circle cx="48" cy="65" r="3" fill="#f5d76e"/>
+        <circle cx="54" cy="63" r="3" fill="#f5d76e"/>
+        <circle cx="60" cy="64" r="3" fill="#f5d76e"/>
+        <!-- Chili oil drops -->
+        <circle cx="72" cy="66" r="4" fill="#ff4500" opacity="0.8"/>
+        <circle cx="78" cy="64" r="3" fill="#cc3300" opacity="0.7"/>
+      </svg>
+      <h3>Spicy Miso Ramen</h3>
+      <p>Miso akadashi, maíz, pak choi, chili oil</p>
+      <div class="price">$15.900</div>
+    </div>
+    <!-- Shoyu -->
+    <div class="bowl-teaser" onclick="openModal('Shoyu Doble Soup','Caldo doble dashi de pollo y kombu, shoyu artesanal, narutomaki, menma, espinacas y alga nori. El equilibrio perfecto de sabores.','$14.900',['clásico','suave','tradicional'])">
+      <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" fill="#0a0000" stroke="rgba(225,29,29,0.3)" stroke-width="1"/>
+        <ellipse cx="60" cy="70" rx="42" ry="12" fill="#4a1500" stroke="#e11d1d" stroke-width="1.5"/>
+        <path d="M18 70 Q22 100 60 104 Q98 100 102 70 Z" fill="#1a0000" stroke="#e11d1d" stroke-width="1.2"/>
+        <ellipse cx="60" cy="70" rx="39" ry="10" fill="#6b2a00" opacity="0.7"/>
+        <path d="M35 68 Q52 61 60 68 Q72 74 83 68" stroke="#f5ede0" stroke-width="2.5" fill="none"/>
+        <!-- Narutomaki -->
+        <circle cx="50" cy="66" r="10" fill="#f5ede0" stroke="#ddd" stroke-width="1"/>
+        <path d="M45 61 Q50 57 55 61 Q52 66 50 66 Q48 66 45 61 Z" fill="#e11d1d" opacity="0.7"/>
+        <!-- Nori strip -->
+        <rect x="68" y="62" width="16" height="10" rx="2" fill="#1a2e1a"/>
+      </svg>
+      <h3>Shoyu Doble Soup</h3>
+      <p>Dashi de pollo y kombu, narutomaki, nori</p>
+      <div class="price">$14.900</div>
+    </div>
+    <!-- Veggie -->
+    <div class="bowl-teaser" onclick="openModal('Veggie Shiitake','Caldo profundo de shiitake y kombu 12h, tofu sedoso marinado, brotes de bambú, zanahoria glaseada, champiñones salteados y pak choi.','$14.500',['vegano','saludable','sin gluten'])">
+      <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" fill="#0a0000" stroke="rgba(225,29,29,0.3)" stroke-width="1"/>
+        <ellipse cx="60" cy="70" rx="42" ry="12" fill="#1a3a00" stroke="#4aaa4a" stroke-width="1.5"/>
+        <path d="M18 70 Q22 100 60 104 Q98 100 102 70 Z" fill="#0a1a00" stroke="#4aaa4a" stroke-width="1.2"/>
+        <ellipse cx="60" cy="70" rx="39" ry="10" fill="#2a5a00" opacity="0.6"/>
+        <path d="M35 68 Q52 61 60 68 Q72 74 83 68" stroke="#f5ede0" stroke-width="2.5" fill="none"/>
+        <!-- Tofu cubes -->
+        <rect x="44" y="60" width="12" height="12" rx="2" fill="#f5f0e8" stroke="#ddd" stroke-width="0.5"/>
+        <!-- Mushroom -->
+        <path d="M65 68 Q72 58 79 68 Z" fill="#8b6a3e"/>
+        <rect x="70" y="68" width="4" height="6" rx="1" fill="#a8845a"/>
+      </svg>
+      <h3>Veggie Shiitake</h3>
+      <p>Caldo de shiitake, tofu sedoso, pak choi</p>
+      <div class="price">$14.500</div>
+    </div>
+  </div>
+  <div class="view-all-banner">
+    <h3>🍜 ¿Quieres ver los 20 tazones?</h3>
+    <p>Descubre toda nuestra selección: tonkotsu, shio, miso, mazemen, tsukemen y más</p>
+    <a href="#" onclick="goToBowls()" class="btn">Ver los 20 Tazones Completos →</a>
+  </div>
+</div>
+</section>
+
+<!-- MENÚ COMPLETO CON TABS -->
+<section id="menu">
+<div class="container">
+  <div class="sec-title">
+    <h2>🥢 Carta Completa</h2>
+    <div class="sec-line"></div>
+    <p class="sec-sub">Todos nuestros platos, complementos y bebidas</p>
+  </div>
+
+  <!-- PROMO BANNER -->
+  <div class="promo-banner">
+    <div class="promo-text">
+      <h3>🔥 Combo del Mes</h3>
+      <p>Ramen a elección + Gyoza (6 pcs) + Bebida + Postre</p>
+    </div>
+    <div class="promo-price">$24.900</div>
+    <a href="https://wa.me/51987654321" class="btn btn-gold">Pedir ahora</a>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="switchTab('tab-ramen')">🍜 Ramen</button>
+    <button class="tab-btn" onclick="switchTab('tab-starters')">🥟 Entradas</button>
+    <button class="tab-btn" onclick="switchTab('tab-extras')">🥚 Extras & Toppings</button>
+    <button class="tab-btn" onclick="switchTab('tab-bebidas')">🍵 Bebidas</button>
+    <button class="tab-btn" onclick="switchTab('tab-postres')">🍡 Postres</button>
+  </div>
+
+  <!-- RAMEN TAB -->
+  <div id="tab-ramen" class="menu-section active">
+    <div class="menu-grid">
+      <div class="menu-item"><div class="menu-item-info"><h4>Shio Ramen</h4><p>Sal marina, pechuga, cebollín</p><span class="menu-badge">ligero</span></div><div class="menu-price">$13.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Shoyu Ramen</h4><p>Soya artesanal, kombu, narutomaki</p><span class="menu-badge">clásico</span></div><div class="menu-price">$14.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Tonkotsu Clásico</h4><p>Cerdo 20h, chashu, huevo marinado</p><span class="menu-badge">popular</span></div><div class="menu-price">$16.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Miso Ramen</h4><p>Miso akadashi, maíz, mantequilla</p><span class="menu-badge">umami</span></div><div class="menu-price">$15.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>TanTan Men</h4><p>Sésamo picante, carne molida, chili oil</p><span class="menu-badge">🌶🌶🌶</span></div><div class="menu-price">$17.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Veggie Shiitake</h4><p>Caldo de hongos, tofu sedoso, pak choi</p><span class="menu-badge">vegano</span></div><div class="menu-price">$14.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Karaage Chicken Ramen</h4><p>Muslo de pollo frito, katsu, miso blanco</p><span class="menu-badge">crujiente</span></div><div class="menu-price">$16.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Mariscos Shimaya</h4><p>Camarones, mejillones, caldo de kombu</p><span class="menu-badge">del mar</span></div><div class="menu-price">$19.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Mazemen Dry Noodle</h4><p>Sin caldo, salsa de soya, huevo crudo, nori</p><span class="menu-badge">especial</span></div><div class="menu-price">$15.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Tsukemen Dipping</h4><p>Fideos fríos, caldo intenso para mojar</p><span class="menu-badge">verano</span></div><div class="menu-price">$17.500</div></div>
+    </div>
+  </div>
+
+  <!-- STARTERS TAB -->
+  <div id="tab-starters" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-item"><div class="menu-item-info"><h4>Gyoza al Vapor (6 uds)</h4><p>Cerdo y verduras, salsa ponzu</p></div><div class="menu-price">$6.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Gyoza Frita (6 uds)</h4><p>Crispy en la base, jugosa por dentro</p><span class="menu-badge">favorita</span></div><div class="menu-price">$7.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Karaage de Pollo (5 pcs)</h4><p>Muslo marinado en sake y soya, kewpie</p></div><div class="menu-price">$8.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Edamame al Ajillo</h4><p>Edamame salteado con ajo y mantequilla</p></div><div class="menu-price">$4.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Takoyaki (8 uds)</h4><p>Bolitas de pulpo, mayo japonesa, katsuobushi</p><span class="menu-badge">Osaka style</span></div><div class="menu-price">$8.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Ensalada Wakame</h4><p>Alga wakame, sésamo, vinagreta de ponzu</p></div><div class="menu-price">$5.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Agedashi Tofu</h4><p>Tofu frito, dashi, daikon rallado</p></div><div class="menu-price">$6.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Chashu Tacos (3 uds)</h4><p>Panceta glaseada, takuan, cebollín</p><span class="menu-badge">fusión</span></div><div class="menu-price">$9.900</div></div>
+    </div>
+  </div>
+
+  <!-- EXTRAS TAB -->
+  <div id="tab-extras" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-item"><div class="menu-item-info"><h4>Huevo Ajitsuke</h4><p>Marinado 24h en soya y mirin</p></div><div class="menu-price">+$2.200</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Chashu Extra (3 pcs)</h4><p>Panceta de cerdo glaseada</p></div><div class="menu-price">+$4.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Nori Extra (3 hojas)</h4><p>Alga tostada umami</p></div><div class="menu-price">+$1.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Menma Extra</h4><p>Brotes de bambú sazonados</p></div><div class="menu-price">+$1.800</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Tofu Sedoso</h4><p>Tofu silken marinado</p></div><div class="menu-price">+$2.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Aceite de Ajo Negro</h4><p>Mayu, el aroma del Kyushu</p></div><div class="menu-price">+$1.200</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Chili Oil Shimaya</h4><p>Blend secreto de 7 chiles</p></div><div class="menu-price">+$1.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Karaage Extra</h4><p>2 piezas de pollo crujiente</p></div><div class="menu-price">+$3.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Fideos Extra</h4><p>Kaedama — porción adicional de fideos</p><span class="menu-badge">sólo in-local</span></div><div class="menu-price">+$1.900</div></div>
+    </div>
+  </div>
+
+  <!-- BEBIDAS TAB -->
+  <div id="tab-bebidas" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-item"><div class="menu-item-info"><h4>Matcha Latte Caliente</h4><p>Matcha ceremonial, leche oat</p></div><div class="menu-price">$5.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Matcha Latte Frío</h4><p>Ceremonial, leche de almendras, hielo</p></div><div class="menu-price">$5.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Ramune Original</h4><p>Soda japonesa de mármol</p><span class="menu-badge">importada</span></div><div class="menu-price">$4.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Calpico Soda</h4><p>Bebida láctica japonesa</p></div><div class="menu-price">$4.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Cerveza Asahi (330ml)</h4><p>La cerveza del ramen japonés</p></div><div class="menu-price">$7.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Sake Caliente (80ml)</h4><p>Sake junmai, temperatura sake</p></div><div class="menu-price">$6.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Té Sencha / Hojicha</h4><p>Infusión japonesa sin azúcar</p></div><div class="menu-price">$3.500</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Yuzu Lemonade</h4><p>Yuzu fresco, miel de abeja, soda</p><span class="menu-badge">sin alcohol</span></div><div class="menu-price">$5.500</div></div>
+    </div>
+  </div>
+
+  <!-- POSTRES TAB -->
+  <div id="tab-postres" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-item"><div class="menu-item-info"><h4>Mochi de Helado</h4><p>Matcha, fresa o vainilla (2 uds)</p><span class="menu-badge">favorito</span></div><div class="menu-price">$5.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Dorayaki Nutella</h4><p>Panqueque japonés relleno de nutella</p></div><div class="menu-price">$4.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Taiyaki (1 ud)</h4><p>Pez dulce relleno de anko o crema</p></div><div class="menu-price">$3.900</div></div>
+      <div class="menu-item"><div class="menu-item-info"><h4>Crème Brûlée Matcha</h4><p>Con corteza caramelizada de azúcar japonés</p><span class="menu-badge">chef</span></div><div class="menu-price">$6.900</div></div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- NUESTRA HISTORIA -->
+<section id="historia">
+<div class="container">
+  <div class="sec-title"><h2>📖 Nuestra Historia</h2><div class="sec-line"></div></div>
+  <div class="history-grid">
+    <div class="history-text">
+      <h3>Del corazón de Tokio a las calles de Lima</h3>
+      <blockquote>"Un tazón caliente para el alma — Un tazón, un momento, un recuerdo."</blockquote>
+      <p>Shimaya Ramen nace en 2024, fundado por el chef Hiroshi Shimaya, quien después de una década perfeccionando el arte del ramen en Japón, trajo consigo los secretos más profundos del <strong>umami</strong> a Lima.</p>
+      <p>Cada caldo se cocina por más de 18 horas. Cada fideo es amasado artesanalmente cada mañana. Cada topping es seleccionado con la obsesión que caracteriza la cocina japonesa. Nuestro local en Miraflores es pequeño pero con un alma gigante.</p>
+      <p>Desde nuestra apertura, hemos servido más de 25,000 tazones manteniendo la tradición y la innovación en perfecta armonía.</p>
+    </div>
+    <div class="history-visual">
+      <div class="history-card"><i class="fas fa-fire"></i><div><h4>Caldo 18 horas</h4><p>Sin atajos, sin conservantes. Cocción lenta que extrae cada gota de sabor.</p></div></div>
+      <div class="history-card"><i class="fas fa-seedling"></i><div><h4>Fideos frescos diarios</h4><p>Amasados cada mañana con harina importada de Niigata, Japón.</p></div></div>
+      <div class="history-card"><i class="fas fa-award"></i><div><h4>Chef Hiroshi Shimaya</h4><p>10 años perfeccionando la técnica del ramen en Fukuoka y Tokyo.</p></div></div>
+      <div class="history-card"><i class="fas fa-globe-asia"></i><div><h4>Ingredientes importados</h4><p>Miso, sake, mirin, nori y salsas traídas directamente de Japón.</p></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SERVICIO -->
+<section id="servicio">
+<div class="container">
+  <div class="sec-title"><h2>🥢 Nuestro Servicio</h2><div class="sec-line"></div></div>
+  <div class="service-grid">
+    <div class="service-card"><i class="fas fa-bolt"></i><h3>Rapidez & Calidez</h3><p>Platos listos en menos de 15 min, atención personalizada y genuina.</p></div>
+    <div class="service-card"><i class="fas fa-user-chef"></i><h3>Chef Asistente</h3><p>Recomendaciones según tu gusto: nivel de picante, textura de fideo.</p></div>
+    <div class="service-card"><i class="fas fa-torii-gate"></i><h3>Ambiente Japonés</h3><p>Linternas, noren, música ambiente. Un viaje sensorial completo.</p></div>
+    <div class="service-card"><i class="fas fa-motorcycle"></i><h3>Delivery Propio</h3><p>Envío en menos de 40 min con empaque térmico que conserva el sabor.</p></div>
+    <div class="service-card"><i class="fas fa-ticket-alt"></i><h3>Miércoles 2x1</h3><p>Gyozas al 2x1 todos los miércoles comiendo en el local.</p></div>
+    <div class="service-card"><i class="fas fa-heart"></i><h3>Sin Conservantes</h3><p>100% ingredientes frescos. Todo natural, todo artesanal, todo amor.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- REDES SOCIALES -->
+<section id="social">
+<div class="container">
+  <div class="sec-title"><h2>✨ Síguenos en Redes</h2><div class="sec-line"></div><p class="sec-sub">Contenido real, sin filtros. Drops exclusivos para seguidores.</p></div>
+  <div class="social-grid">
+    <a href="https://www.instagram.com/shimayaramen.pe" target="_blank" class="social-card ig">
+      <i class="fab fa-instagram"></i>
+      <h4>Instagram</h4>
+      <p>Fotos de tazones, videos del proceso y concursos</p>
+      <div class="handle">@shimayaramen.pe</div>
+    </a>
+    <a href="https://www.tiktok.com/@shimayaramen" target="_blank" class="social-card tt">
+      <i class="fab fa-tiktok"></i>
+      <h4>TikTok</h4>
+      <p>Detrás de cámara, recetas y ASMR del caldo</p>
+      <div class="handle">@shimayaramen</div>
+    </a>
+    <a href="https://www.facebook.com/shimayaramenpe" target="_blank" class="social-card fb">
+      <i class="fab fa-facebook-f"></i>
+      <h4>Facebook</h4>
+      <p>Eventos, promociones y reseñas de clientes</p>
+      <div class="handle">ShimayaRamenPE</div>
+    </a>
+    <a href="https://wa.me/51987654321" target="_blank" class="social-card wa">
+      <i class="fab fa-whatsapp"></i>
+      <h4>WhatsApp</h4>
+      <p>Reservas y pedidos de delivery directo</p>
+      <div class="handle">+51 987 654 321</div>
+    </a>
+    <a href="https://www.youtube.com/@shimayaramen" target="_blank" class="social-card yt">
+      <i class="fab fa-youtube"></i>
+      <h4>YouTube</h4>
+      <p>Documentales de recetas, cultura ramen y Japón</p>
+      <div class="handle">@ShimayaRamen</div>
+    </a>
+    <a href="https://x.com/shimayaramen" target="_blank" class="social-card tw">
+      <i class="fab fa-x-twitter"></i>
+      <h4>X (Twitter)</h4>
+      <p>Noticias, menú del día y drops sorpresa</p>
+      <div class="handle">@shimayaramen</div>
+    </a>
+  </div>
+  <div class="social-hashtag">Comparte tu tazón con <strong>#ShimayaUmami</strong> · <strong>#ShimayaRamen</strong> · <strong>#RamenLima</strong></div>
+</div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion">
+<div class="container">
+  <div class="sec-title"><h2>📍 Encuéntranos</h2><div class="sec-line"></div></div>
+  <div class="location-grid">
+    <div class="loc-card">
+      <i class="fas fa-map-marked-alt"></i>
+      <h3>Shimaya Ramen Miraflores</h3>
+      <p><i class="fas fa-map-pin" style="color:var(--red)"></i> Calle Los Nogales 345, Miraflores, Lima</p>
+      <p><i class="fas fa-clock" style="color:var(--red)"></i> Lun–Dom: 12:00 pm — 10:00 pm</p>
+      <p><i class="fas fa-parking" style="color:var(--red)"></i> Estacionamiento gratuito para clientes</p>
+      <p><i class="fas fa-subway" style="color:var(--red)"></i> A 3 cuadras de la Av. Larco</p>
+      <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=Calle+Los+Nogales+345,+Miraflores,+Lima','_blank')" class="btn" style="margin-top:1rem;"><i class="fas fa-directions"></i> Ver en Google Maps</button>
+      <div class="map-embed">
+        <svg width="100%" height="100%" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="500" height="220" fill="#111"/>
+          <!-- Street grid -->
+          <line x1="0" y1="80" x2="500" y2="80" stroke="#1f1f1f" stroke-width="20"/>
+          <line x1="0" y1="140" x2="500" y2="140" stroke="#1f1f1f" stroke-width="20"/>
+          <line x1="150" y1="0" x2="150" y2="220" stroke="#1f1f1f" stroke-width="20"/>
+          <line x1="320" y1="0" x2="320" y2="220" stroke="#1f1f1f" stroke-width="20"/>
+          <!-- Street labels -->
+          <text x="5" y="76" font-size="8" fill="#555">Av. Larco</text>
+          <text x="5" y="136" font-size="8" fill="#555">C. Benavides</text>
+          <text x="152" y="15" font-size="7" fill="#555">C. Nogales</text>
+          <!-- Location pin -->
+          <circle cx="235" cy="110" r="18" fill="var(--red)" opacity="0.9"/>
+          <path d="M235 100 Q248 100 248 108 Q248 122 235 130 Q222 122 222 108 Q222 100 235 100 Z" fill="var(--red)"/>
+          <circle cx="235" cy="110" r="7" fill="#fff"/>
+          <!-- Shimaya label -->
+          <rect x="195" y="138" width="80" height="22" rx="5" fill="var(--red)"/>
+          <text x="205" y="153" font-size="9" fill="#fff" font-weight="bold">SHIMAYA RAMEN</text>
+          <!-- Park blocks -->
+          <rect x="0" y="0" width="148" height="78" rx="0" fill="#0d1400" opacity="0.5"/>
+          <rect x="322" y="0" width="178" height="78" rx="0" fill="#0d1400" opacity="0.5"/>
+          <rect x="322" y="142" width="178" height="78" rx="0" fill="#0a0a0a"/>
+        </svg>
+      </div>
+    </div>
+    <div class="loc-card">
+      <i class="fas fa-phone-alt"></i>
+      <h3>Contacto & Reservas</h3>
+      <p><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp: +51 987 654 321</p>
+      <p><i class="fas fa-phone" style="color:var(--red)"></i> Teléfono: 01 234 5678</p>
+      <p><i class="fas fa-envelope" style="color:var(--red)"></i> hola@shimayaramen.pe</p>
+      <p style="margin-top:1rem;"><i class="fas fa-star" style="color:var(--gold)"></i> <strong>Reserva tu mesa</strong> con anticipación los fines de semana.</p>
+      <a href="https://wa.me/51987654321?text=Hola!%20Quiero%20reservar%20una%20mesa%20en%20Shimaya%20Ramen" target="_blank" class="btn" style="margin-top:1rem;background:#25d366;"><i class="fab fa-whatsapp"></i> Reservar por WhatsApp</a>
+      <div style="margin-top:1.5rem;background:#0d0d0d;border-radius:16px;padding:1.2rem;border:1px solid #222;">
+        <p style="font-size:.85rem;color:#888;margin-bottom:.5rem;">⏰ <strong style="color:#ccc">Próximos horarios especiales</strong></p>
+        <p style="font-size:.8rem;color:#666;">🎌 Día Japón (24 Jun) — Menú especial todo el día</p>
+        <p style="font-size:.8rem;color:#666;">🍜 Ramen Fest (Ago) — Precios especiales toda la semana</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="container footer-flex">
+  <div class="footer-logo">SHIMAYA RAMEN 🍜</div>
+  <div class="footer-copy">© 2025 Shimaya Ramen · Miraflores, Lima, Perú · Todos los derechos reservados<br>Hecho con ❤️ y 18 horas de caldo</div>
+  <div class="footer-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#menu">Carta</a>
+    <a href="#" onclick="goToBowls()">Tazones</a>
+    <a href="#social">Social</a>
+  </div>
+</div>
+</footer>
+
+</div><!-- end page-main -->
+
+<!-- ═══════════════════════════════════
+     PÁGINA DE TAZONES (SPA)
+═══════════════════════════════════ -->
+<div id="page-bowls">
+
+<nav class="bowl-page-nav">
+<div class="container bowl-nav-flex">
+  <div class="logo-wrap"><h1>SHIMAYA RAMEN</h1><p>🍜 旨味 · 伝統 · 情熱</p></div>
+  <button class="back-btn" onclick="goToMain()"><i class="fas fa-arrow-left"></i> Volver al inicio</button>
+</div>
+</nav>
+
+<div class="bowls-hero">
+<div class="container">
+  <h1 class="hero-title">🍜 Los <span class="accent">20 Tazones</span> Shimaya</h1>
+  <p>Desde el suave Shio hasta el potente TanTan Especial — cada tazón es una obra de arte. Haz clic para ver detalles.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterBowls('all')">Todos (20)</button>
+    <button class="filter-btn" onclick="filterBowls('cerdo')">🐖 Cerdo</button>
+    <button class="filter-btn" onclick="filterBowls('pollo')">🐔 Pollo</button>
+    <button class="filter-btn" onclick="filterBowls('mar')">🦐 Mar</button>
+    <button class="filter-btn" onclick="filterBowls('veggie')">🌱 Veggie</button>
+    <button class="filter-btn" onclick="filterBowls('picante')">🌶 Picante</button>
+    <button class="filter-btn" onclick="filterBowls('especial')">⭐ Especial</button>
+  </div>
+</div>
+</div>
+
+<div class="container" style="padding:3rem 2rem;">
+<div class="bowls-grid" id="bowlsGrid">
+  <!-- Las 20 cards se generan con JS -->
+</div>
+</div>
+
+<footer style="margin-top:2rem;">
+<div class="container footer-flex">
+  <div class="footer-logo">SHIMAYA RAMEN 🍜</div>
+  <div class="footer-copy">© 2025 Shimaya Ramen · Lima, Perú · <strong style="color:var(--red)">@shimayaramen.pe</strong></div>
+  <button class="back-btn" onclick="goToMain()"><i class="fas fa-arrow-left"></i> Volver al inicio</button>
+</div>
+</footer>
+
+</div><!-- end page-bowls -->
+
+<!-- MODAL -->
+<div id="ramenModal" class="modal" onclick="if(event.target===this)closeModal()">
+<div class="modal-content">
+  <button class="close-modal" onclick="closeModal()">×</button>
+  <div class="modal-bowl" id="modalBowl"></div>
+  <div class="modal-title" id="modalTitle"></div>
+  <div class="modal-desc" id="modalDesc"></div>
+  <div class="modal-price" id="modalPrice"></div>
+  <div class="modal-tags" id="modalTags"></div>
+  <a href="https://wa.me/51987654321" target="_blank" class="btn btn-gold" style="width:100%;justify-content:center;"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
+</div>
+</div>
+
+<script>
+// ── DATA: 20 TAZONES ──
+const bowls = [
+  {id:1,name:"Tonkotsu Clásico",short:"Caldo cremoso de hueso de cerdo 20h",desc:"El rey del ramen. Caldo de hueso de cerdo cocinado por 20 horas hasta lograr una consistencia sedosa y cremosa. Servido con chashu de panceta, huevo ajitsuke marinado 24h, ajo negro asado, menma y cebollín.",price:"$16.900",badge:"⭐ popular",spice:0,tags:["cremoso","popular","18h caldo"],cat:"cerdo",color:"#5a0000",accent:"#8b0000"},
+  {id:2,name:"Tonkotsu Fuerte",short:"Doble concentración de caldo + ajo negro",desc:"Para los amantes del sabor intenso. Doble concentración de caldo de cerdo, dos láminas de chashu, ajo negro mayu, huevo extra y fideos wavy extra gruesos.",price:"$18.900",badge:"💪 intenso",spice:0,tags:["intenso","doble chashu","mayu"],cat:"cerdo",color:"#3a0000",accent:"#600000"},
+  {id:3,name:"Spicy TanTan Men",short:"Sésamo, carne molida picante, chili oil",desc:"Inspirado en el dan dan mian chino. Crema de pasta de sésamo, caldo de pollo, carne molida picante, pak choi, fideos finos y un hilo de aceite chili artesanal. Explosión de umami y picante.",price:"$17.900",badge:"🌶🌶🌶 picante",spice:3,tags:["picante","sésamo","umami"],cat:"picante",color:"#7a0000",accent:"#cc2200"},
+  {id:4,name:"TanTan Men Extremo",short:"Versión ultra-picante solo para valientes",desc:"El reto más picante de Shimaya. Doble chili oil, pasta gochujang, carne picante a fuego lento y topping de chiles frescos. No recomendado para principiantes.",price:"$19.500",badge:"🔥🔥🔥 EXTREMO",spice:5,tags:["muy picante","reto","exclusivo"],cat:"picante",color:"#6a0000",accent:"#aa0000"},
+  {id:5,name:"Miso Akadashi",short:"Miso rojo, maíz, mantequilla, pak choi",desc:"Pasta de miso akadashi (rojo) mezclada con caldo de pollo y cerdo. Maíz dulce asado, mantequilla de primera, pak choi salteado y nori. El favorito de invierno.",price:"$15.500",badge:"🌽 umami",spice:1,tags:["umami","miso","confortante"],cat:"cerdo",color:"#4a2000",accent:"#7a3500"},
+  {id:6,name:"Shiro Miso",short:"Miso blanco suave, pollo, setas",desc:"Miso shiro (blanco) de sabor delicado con caldo de pollo y dashi. Shiitake salteados, tofu sedoso, narutomaki y aceite de sésamo. Perfecto para quienes prefieren sabores sutiles.",price:"$14.900",badge:"🤍 suave",spice:0,tags:["suave","miso blanco","setas"],cat:"pollo",color:"#2a1a00",accent:"#4a3000"},
+  {id:7,name:"Shoyu Doble Soup",short:"Soya artesanal, pollo y kombu, narutomaki",desc:"Caldo doble: pollo y kombu, con shoyu artesanal de Niigata. Chashu de pollo, narutomaki, espinacas, menma y aceite de cebollín. El clásico más equilibrado.",price:"$14.900",badge:"🎌 clásico",spice:0,tags:["clásico","equilibrado","tradicional"],cat:"pollo",color:"#3a1500",accent:"#6b2500"},
+  {id:8,name:"Shio Crystal",short:"Sal marina, caldo de pollo ultra-claro",desc:"El más sutil y elegante. Caldo de pollo clarificado con sal marina fina, kombu y katsuobushi. Menma, narutomaki, cebollín y un huevo ajitsuke perfecto. Para apreciar el umami puro.",price:"$13.900",badge:"💎 delicado",spice:0,tags:["ligero","delicado","claro"],cat:"pollo",color:"#1a1000",accent:"#3a2000"},
+  {id:9,name:"Karaage Chicken Ramen",short:"Muslo de pollo frito crujiente, miso blanco",desc:"Muslo de pollo marinado en sake y soya, empanizado y frito hasta quedar crujiente. Sobre un caldo de miso blanco con fideos finos. Kewpie mayo de cobertura y katsuobushi.",price:"$16.500",badge:"🍗 crujiente",spice:0,tags:["pollo frito","crujiente","kewpie"],cat:"pollo",color:"#3a2000",accent:"#6b3a00"},
+  {id:10,name:"Mariscos del Pacífico",short:"Camarones, mejillones, caldo de kombu",desc:"Caldo de kombu y katsuobushi con camarones jumbo, mejillones, calamar y nori. Toque de yuzu para frescor. El mar en un tazón.",price:"$19.900",badge:"🦐 del mar",spice:0,tags:["mariscos","yuzu","kombu"],cat:"mar",color:"#001a3a",accent:"#003a6b"},
+  {id:11,name:"Ebi Miso Ramen",short:"Caldo de cabeza de camarón, miso y maíz",desc:"Caldo profundo elaborado con cabezas y cáscaras de camarón durante 6 horas. Miso al final para una profundidad única. Camarones enteros, maíz y cebollín.",price:"$18.500",badge:"🍤 intenso marino",spice:1,tags:["camarón","miso","mar"],cat:"mar",color:"#1a0a00",accent:"#3a1800"},
+  {id:12,name:"Veggie Shiitake",short:"Caldo de hongos 12h, tofu sedoso",desc:"Caldo vegano de shiitake, konbu y miso blanco. Tofu sedoso marinado, brotes de bambú, zanahoria glaseada, champiñones múltiples y pak choi salteado. 100% plant-based.",price:"$14.500",badge:"🌱 vegano",spice:0,tags:["vegano","sin gluten","saludable"],cat:"veggie",color:"#0a1a00",accent:"#1a3a00"},
+  {id:13,name:"Veggie Spicy Miso",short:"Miso picante, tofu, verduras asiáticas",desc:"Para veganos amantes del picante. Miso akadashi con aceite chili, pak choi, edamame, champiñones y tofu ahumado. Chili oil casero para terminar.",price:"$15.500",badge:"🌶🌱 veggie picante",spice:2,tags:["vegano","picante","miso"],cat:["veggie","picante"],color:"#0a1200",accent:"#1a2a00"},
+  {id:14,name:"Mazemen Trufa",short:"Sin caldo, salsa negra de trufa y shoyu",desc:"Ramen en seco. Fideos anchos bañados en salsa de shoyu y aceite de trufa negra. Huevo crudo de yema curada, nori, cebollín picado y semillas de sésamo. Removido en la mesa.",price:"$17.500",badge:"⭐ especial",spice:0,tags:["en seco","trufa","huevo curado"],cat:"especial",color:"#0d0d0d",accent:"#2a2a2a"},
+  {id:15,name:"Tsukemen Dipping",short:"Fideos fríos para mojar en caldo concentrado",desc:"Fideos planos servidos fríos para mojar en un caldo de cerdo y kombu súper concentrado y caliente. Naruto, nori y sésamo. Experiencia diferente y adictiva.",price:"$17.900",badge:"⭐ diferente",spice:0,tags:["dipping","fideos fríos","concentrado"],cat:"especial",color:"#1a0500",accent:"#3a0f00"},
+  {id:16,name:"Abura Soba",short:"Noodles con salsa de grasa de cerdo y soya",desc:"Fideos cubiertos en grasa de cerdo, shoyu, vinagre y aceite chili. Sin caldo. Chashu desmenuzado, huevo ajitsuke y nori. Estilo Tokio ultra-trendy.",price:"$16.900",badge:"🔥 trendy",spice:1,tags:["en seco","grasa","trendy"],cat:"especial",color:"#1a0800",accent:"#3a1500"},
+  {id:17,name:"Hakata Tonkotsu Spicy",short:"Caldo de Fukuoka con chili oil secreto",desc:"Versión picante del auténtico Hakata Tonkotsu de Fukuoka. Fideos ultra-delgados, chashu doble, marinated egg, ajo mayu y nuestro chili oil de 7 ingredientes.",price:"$18.500",badge:"🌶💀 Hakata fire",spice:4,tags:["picante","Hakata","fideos delgados"],cat:["cerdo","picante"],color:"#5a0000",accent:"#990000"},
+  {id:18,name:"Pollo Yuzu Shio",short:"Caldo de pollo, ralladura de yuzu, elegancia",desc:"Caldo de pollo con sal marina fina y ralladura de yuzu fresco. Karaage de muslo, narutomaki, shichimi togarashi y fideos finos. Frescor y umami en armonía perfecta.",price:"$15.900",badge:"🍋 refrescante",spice:0,tags:["yuzu","pollo","fresco"],cat:"pollo",color:"#1a1a00",accent:"#3a3a00"},
+  {id:19,name:"Shimaya Chef's Special",short:"Receta secreta del chef. Varía cada semana",desc:"El ramen que el Chef Hiroshi crea libremente cada semana según la temporada y su inspiración. Ingredientes premium, técnica impecable. Solo pregunta cuál es hoy.",price:"$22.900",badge:"👨‍🍳 edición limitada",spice:0,tags:["edición limitada","chef","premium"],cat:"especial",color:"#1a0000",accent:"#3a0000"},
+  {id:20,name:"Nikkei Fusion Ramen",short:"Fusión japonesa-peruana: ají amarillo & miso",desc:"El orgullo de Lima. Caldo base miso con ají amarillo mirasol, chashu nikkei marinado en soya y ají panca, huevo de codorniz, yuca chips y choclo andino. Dos culturas en un tazón.",price:"$19.900",badge:"🇵🇪🇯🇵 nikkei",spice:2,tags:["fusión","nikkei","ají amarillo","peruano"],cat:"especial",color:"#3a1500",accent:"#6b2a00"},
+];
+
+// ── SVG BOWL ICONS (per bowl) ──
+function getBowlSVG(bowl){
+  const c = bowl.color;
+  const a = bowl.accent;
+  return `<svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="70" cy="70" r="65" fill="#080000" stroke="${a}" stroke-width="1" opacity="0.5"/>
+    <!-- Steam -->
+    <path d="M50 42 Q54 32 48 24" stroke="rgba(255,200,200,0.5)" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></path>
+    <path d="M70 38 Q74 28 68 20" stroke="rgba(255,200,200,0.5)" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.4s" repeatCount="indefinite"/></path>
+    <path d="M90 42 Q94 32 88 24" stroke="rgba(255,200,200,0.5)" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.5;0.9;0.5" dur="1.9s" repeatCount="indefinite"/></path>
+    <!-- Bowl -->
+    <ellipse cx="70" cy="72" rx="48" ry="14" fill="${c}" stroke="${a}" stroke-width="1.5"/>
+    <path d="M22 72 Q26 108 70 113 Q114 108 118 72 Z" fill="${c}" stroke="${a}" stroke-width="1.5"/>
+    <ellipse cx="70" cy="72" rx="44" ry="12" fill="${a}" opacity="0.7"/>
+    <!-- Noodles -->
+    <path d="M38 70 Q56 62 70 70 Q86 77 101 70" stroke="#f5ede0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M42 77 Q60 69 70 77 Q84 83 98 77" stroke="#e8d5b0" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Egg -->
+    <circle cx="55" cy="70" r="12" fill="#f5d76e" stroke="#daa520" stroke-width="1.2"/>
+    <circle cx="55" cy="70" r="6" fill="#e8961a"/>
+    <!-- Chashu -->
+    <ellipse cx="88" cy="67" rx="14" ry="9" fill="#8B2500" stroke="#5a1500" stroke-width="1"/>
+    <ellipse cx="88" cy="67" rx="9" ry="6" fill="#a83000"/>
+    <!-- Nori -->
+    <rect x="67" y="59" width="11" height="15" rx="2" fill="#1a2e1a" stroke="#2d4a2d" stroke-width="0.8"/>
+    <!-- Green onion dots -->
+    <circle cx="44" cy="66" r="2.5" fill="#4aaa4a"/>
+    <circle cx="49" cy="62" r="2" fill="#3a8a3a"/>
+  </svg>`;
+}
+
+function getSpiceIcons(n){
+  let s='';
+  for(let i=0;i<5;i++) s+=`<span class="chili${i<n?'':' off'}">🌶</span>`;
+  return s;
+}
+
+function renderBowls(filter='all'){
+  const grid=document.getElementById('bowlsGrid');
+  if(!grid) return;
+  const filtered=bowls.filter(b=>{
+    if(filter==='all') return true;
+    if(Array.isArray(b.cat)) return b.cat.includes(filter);
+    return b.cat===filter;
+  });
+  grid.innerHTML=filtered.map(b=>`
+    <div class="bowl-card" data-cat="${Array.isArray(b.cat)?b.cat.join(','):b.cat}" onclick="openModal('${b.name}','${b.desc}','${b.price}',${JSON.stringify(b.tags)})">
+      <div class="bowl-card-img">${getBowlSVG(b)}</div>
+      <div class="bowl-card-body">
+        <h3>${b.name}</h3>
+        <p>${b.short}</p>
+        <div class="bowl-spice">${getSpiceIcons(b.spice)}</div>
+        <div class="bowl-card-footer">
+          <span class="price">${b.price}</span>
+          <span class="bowl-badge">${b.badge}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterBowls(cat){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderBowls(cat);
+}
+
+// ── MODAL ──
+function openModal(name,desc,price,tags){
+  document.getElementById('modalTitle').textContent=name;
+  document.getElementById('modalDesc').textContent=desc;
+  document.getElementById('modalPrice').textContent=price;
+  document.getElementById('modalBowl').innerHTML=`<svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg"><circle cx="35" cy="35" r="33" fill="#0a0000" stroke="#e11d1d" stroke-width="1.5"/><ellipse cx="35" cy="38" rx="24" ry="7" fill="#5a0000" stroke="#e11d1d" stroke-width="1"/><path d="M11 38 Q14 54 35 56 Q56 54 59 38 Z" fill="#1a0000" stroke="#e11d1d" stroke-width="1"/><ellipse cx="35" cy="38" rx="22" ry="6" fill="#8b0000" opacity="0.7"/><path d="M18 36 Q28 31 35 36 Q43 41 51 36" stroke="#f5ede0" stroke-width="2" fill="none"/></svg>`;
+  const tagsEl=document.getElementById('modalTags');
+  if(tags&&Array.isArray(tags)) tagsEl.innerHTML=tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');
+  document.getElementById('ramenModal').classList.add('open');
+}
+function closeModal(){document.getElementById('ramenModal').classList.remove('open');}
+
+// ── SPA NAVIGATION ──
+function goToBowls(){
+  document.getElementById('page-main').style.display='none';
+  document.getElementById('page-bowls').style.display='block';
+  renderBowls();
+  window.scrollTo(0,0);
+}
+function goToMain(){
+  document.getElementById('page-bowls').style.display='none';
+  document.getElementById('page-main').style.display='block';
+  window.scrollTo(0,0);
+}
+
+// ── MENU TABS ──
+function switchTab(id){
+  document.querySelectorAll('.menu-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const href=this.getAttribute('href');
+    if(href&&href.startsWith('#')&&href.length>1){
+      e.preventDefault();
+      const t=document.querySelector(href);
+      if(t) t.scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
+</script>
+</body>
+</html>
+HTMLEOF
